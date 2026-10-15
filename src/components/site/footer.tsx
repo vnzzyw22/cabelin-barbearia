@@ -42,7 +42,7 @@ export function Footer({ demo }: { demo: boolean }) {
 
         <div className="mt-8 flex flex-col gap-2 border-t border-[var(--line-on-dark)] pt-6 text-[0.85rem] text-ash md:flex-row md:justify-between">
           <p>
-            © {new Date().getFullYear()} {BRAND.name} · {BRAND.address} · {BRAND.city} – {BRAND.state}
+            © {new Date().getFullYear()} {BRAND.name} · {BRAND.venue} (subsolo) · {BRAND.address} · {BRAND.city} – {BRAND.state}
           </p>
           {demo && <p>Prévia de demonstração: agendamentos e área do cliente rodam só neste navegador.</p>}
         </div>

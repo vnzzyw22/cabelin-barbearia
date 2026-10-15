@@ -23,6 +23,8 @@ export function InViewVideo({
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
+    // Propriedade (não só atributo): é o que libera o autoplay no iOS/Chrome.
+    video.muted = true;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) video.play().catch(() => setPlaying(false));

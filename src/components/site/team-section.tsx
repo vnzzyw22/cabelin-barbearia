@@ -2,21 +2,26 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { PHOTOS, TEAM_PLACEHOLDER } from "@/content/cabelin";
 import { useDemoState } from "@/lib/demo/store";
 import { EASE } from "@/lib/motion";
 import { Parallax, RevealClip } from "./motion";
 import { SectionHead } from "./section-head";
 
-// Equipe. A foto do time de uniforme areia é a peça principal (é a cara da
-// Cabelin hoje); ao lado, a escalação numerada — cada linha leva direto ao
+// Equipe. O panorama dos cinco de uniforme areia ocupa a largura toda e
+// "anda" com a rolagem (no celular revela um por um); abaixo, um barbeiro em
+// ação e a escalação numerada — cada linha leva direto ao
 // agendamento com aquele profissional. Lê os nomes do store da demonstração,
 // então um nome trocado no painel aparece aqui.
 
 export function TeamSection() {
   const reduce = useReducedMotion();
   const state = useDemoState();
+  const panoRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: panoRef, offset: ["start end", "end start"] });
+  const pan = useTransform(scrollYProgress, [0.1, 0.9], ["0% 60%", "100% 60%"]);
   const team = state ? state.staff.filter((s) => s.active).map((s) => ({ id: s.id, name: s.name, role: s.role })) : TEAM_PLACEHOLDER;
 
   return (
@@ -27,12 +32,30 @@ export function TeamSection() {
           vá direto pra agenda dele.
         </SectionHead>
 
-        <div className="mt-14 grid gap-10 md:mt-20 lg:grid-cols-12 lg:gap-x-8">
+      </div>
+
+      {/* Panorama dos cinco: sangra a largura toda */}
+      <div ref={panoRef} className="mt-14 md:mt-20">
+        <RevealClip>
+          <div className="relative aspect-[4/5] overflow-hidden bg-sand sm:aspect-[16/9] lg:aspect-[21/9]">
+            <motion.img
+              src={PHOTOS.equipe.src}
+              alt={PHOTOS.equipe.alt}
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: reduce ? "50% 60%" : pan }}
+            />
+          </div>
+        </RevealClip>
+      </div>
+
+      <div className="wrap">
+        <div className="mt-6 grid gap-10 md:mt-8 lg:grid-cols-12 lg:gap-x-8">
           <div className="lg:col-span-7">
-            <RevealClip>
-              <div className="relative aspect-[1040/1335] overflow-hidden bg-sand sm:aspect-[5/4] lg:aspect-[1040/1100]">
-                <Parallax offset={16} className="absolute -bottom-8 top-0 inset-x-0">
-                  <Image src={PHOTOS.equipe.src} alt={PHOTOS.equipe.alt} fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover object-top" />
+            <RevealClip from="left">
+              <div className="relative aspect-[1350/1080] overflow-hidden bg-ink">
+                <Parallax offset={16} className="absolute -inset-y-6 inset-x-0">
+                  <Image src={PHOTOS.secador.src} alt={PHOTOS.secador.alt} fill sizes="(min-width: 1024px) 55vw, 100vw" className="object-cover" />
                 </Parallax>
               </div>
             </RevealClip>
@@ -74,7 +97,7 @@ export function TeamSection() {
                 </motion.li>
               ))}
             </ol>
-            <p className="caption mt-4 text-smoke">Nataly confirmada pelo perfil; os demais nomes são de exemplo nesta prévia.</p>
+            <p className="caption mt-4 text-smoke">Nataly confirmada pelo perfil; os demais nomes são de exemplo — a foto é a equipe real.</p>
           </div>
         </div>
       </div>

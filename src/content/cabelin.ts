@@ -7,6 +7,11 @@
 //   endereço R. Bela Vista, 99 – Apucarana/PR 86802-330, WhatsApp (43) 98867-5695,
 //   slogan "Qualidade que ninguém copia.", existência do Club de Assinatura,
 //   da cafeteria (post de inauguração) e da barbeira Nataly (post de apresentação).
+// - VERIFICADO (mídia enviada pelo Vinicius, 2026-10-15): fica DENTRO DO MUFFATO
+//   APUCARANA, no subsolo (cartela do vídeo 2 e post "Localização privilegiada");
+//   estacionamento coberto e amplo (vídeo 5); cafeteria exclusiva "pra tomar um
+//   café, salgado ou uma cervejinha enquanto aguarda o corte" (post da cafeteria);
+//   chopp, vitrine de salgados e máquina de café aparecem no vídeo da inauguração.
 // - ILUSTRATIVO (trocar antes da versão final): preços e durações dos serviços,
 //   nomes/valores/benefícios dos planos do Club, demais nomes da equipe,
 //   itens do cardápio da cafeteria. Tudo marcado com "ILUSTRATIVO" abaixo.
@@ -24,14 +29,17 @@ export const BRAND = {
   instagramUrl: "https://www.instagram.com/barbeariacabelinn/",
   address: "Rua Bela Vista, 99",
   neighborhood: "Vila Santa Terezinha",
+  /** Ponto de referência: a barbearia fica dentro do supermercado. */
+  venue: "Muffato Apucarana",
+  venueDetail: "Subsolo · estacionamento coberto",
   zip: "86802-330",
   hoursLabel: "Seg a Sáb · 9h às 21h",
   mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Barbearia+Cabelin,+R.+Bela+Vista,+99,+Apucarana+-+PR",
+    "https://www.google.com/maps/search/?api=1&query=Barbearia+Cabelin,+Muffato+Apucarana,+R.+Bela+Vista,+99,+Apucarana+-+PR",
   directionsUrl:
-    "https://www.google.com/maps/dir/?api=1&destination=Barbearia+Cabelin,+R.+Bela+Vista,+99,+Apucarana+-+PR,+86802-330",
+    "https://www.google.com/maps/dir/?api=1&destination=Super+Muffato+Apucarana,+R.+Bela+Vista,+99,+Apucarana+-+PR,+86802-330",
   mapEmbedUrl:
-    "https://www.google.com/maps?q=R.+Bela+Vista,+99+-+Apucarana+-+PR,+86802-330&z=16&output=embed",
+    "https://www.google.com/maps?q=Super+Muffato+Apucarana,+R.+Bela+Vista,+99+-+Apucarana+-+PR&z=16&output=embed",
 } as const;
 
 export function whatsappUrl(message?: string) {
@@ -146,37 +154,49 @@ export const DEMO_BUSINESS_HOURS: Record<string, { open: string; close: string }
 };
 
 // ── Cafeteria ───────────────────────────────────────────────────────
-// A cafeteria existe (post de inauguração). ILUSTRATIVO: itens do cardápio.
+// VERIFICADO: post "Cafeteria exclusiva" + vídeo da inauguração (vitrine de
+// salgados, chopp, máquina de café). Sem preços — o cardápio do dia fica no balcão.
+export const CAFE_QUOTE = "Pra tomar um café, salgado ou uma cervejinha enquanto aguarda o corte.";
 export const CAFE_MENU = [
-  { name: "Espresso", note: "Curto, do jeito certo" },
-  { name: "Cappuccino", note: "Pra esperar sem pressa" },
-  { name: "Café coado", note: "Passado na hora" },
-  { name: "Gelados", note: "Pros dias quentes de Apucarana" },
+  { name: "Café", note: "Da máquina, na hora" },
+  { name: "Salgados", note: "Na vitrine, todo dia" },
+  { name: "Cervejinha", note: "Chopp gelado na torneira" },
 ] as const;
 
 // ── Fotografias ─────────────────────────────────────────────────────
-// Recortes dos posts do Instagram (midia-cliente/), ~1000px. Trocar pelos
-// originais em alta mantendo o mesmo caminho — o layout não muda.
+// Originais enviados pelo Vinicius (2026-10-15), 1080px. Textos de Instagram
+// removidos com inpaint nas artes do Club e da cafeteria; fachada recortada
+// acima do texto. Equipe = as duas metades do panorama do carrossel unidas.
 export const PHOTOS = {
-  salao: { src: "/images/cabelin/espaco-salao.jpg", alt: "Salão da Cabelin com teto de hexágonos em LED, parede azul-petróleo e cadeiras pretas" },
-  teto: { src: "/images/cabelin/espaco-teto.jpg", alt: "Teto de hexágonos iluminados sobre a parede azul-petróleo" },
-  espacoNovo: { src: "/images/cabelin/espaco-novo.jpg", alt: "O novo espaço da Cabelin, com sofá chesterfield e bancadas" },
-  barba: { src: "/images/cabelin/barba-navalha.jpg", alt: "Barbeiro de uniforme areia acertando a barba de um cliente" },
-  equipe: { src: "/images/cabelin/equipe-areia.jpg", alt: "Equipe da Cabelin de uniforme areia, braços cruzados, encostada na parede" },
-  equipeTrio: { src: "/images/cabelin/equipe-trio.jpg", alt: "Três barbeiros da Cabelin de uniforme areia" },
-  filmeNuca: { src: "/images/cabelin/filme-nuca.jpg", alt: "Acabamento na nuca, visto de perto" },
-  filmeCapa: { src: "/images/cabelin/filme-capa-verde.jpg", alt: "Capa da Cabelin com o monograma do bigode" },
-  filmeFoco: { src: "/images/cabelin/filme-concentracao.jpg", alt: "Barbeiro concentrado no corte" },
-  curso: { src: "/images/cabelin/curso-turma.jpg", alt: "Turma de curso prático de barbearia no salão da Cabelin" },
+  fachada: { src: "/images/cabelin/fachada.jpg", alt: "Vitrine da Cabelin dentro do Muffato: bigode no vidro, teto de hexágonos em LED, parede azul e sofá chesterfield" },
+  cadeira: { src: "/images/cabelin/barbeiro-cadeira.jpg", alt: "Barbeiro atendendo um cliente na cadeira, com espelhos e parede azul-petróleo ao fundo" },
+  cafeteria: { src: "/images/cabelin/cafeteria.jpg", alt: "Cafeteria da Cabelin: vitrine de salgados, máquina de café e mesa de madeira com cadeiras pretas" },
+  equipe: { src: "/images/cabelin/equipe-panorama.jpg", alt: "Os cinco barbeiros da Cabelin de uniforme areia, encostados lado a lado na parede" },
+  secador: { src: "/images/cabelin/barbeiro-secador.jpg", alt: "Barbeiro de uniforme areia finalizando o cabelo de um cliente com secador e escova" },
+  club: { src: "/images/cabelin/club-regua.jpg", alt: "Barbeiro da Cabelin de braços cruzados sob o teto de LED, com a frase Bora ficar na régua?" },
+  tesoura: { src: "/images/cabelin/servico-tesoura.jpg", alt: "Corte na tesoura com a capa preta da Cabelin" },
+  pente: { src: "/images/cabelin/servico-pente.jpg", alt: "Escova e secador modelando o cabelo" },
+  freestyle: { src: "/images/cabelin/servico-freestyle.jpg", alt: "Degradê com desenho feito na navalha" },
 } as const;
 
 export type PhotoKey = keyof typeof PHOTOS;
 
 // ── Vídeos ──────────────────────────────────────────────────────────
-// TEMPORÁRIO: a hero usa um loop montado com as fotos reais (ffmpeg, ver
-// CLAUDE.md). Trocar pelos reels originais em alta quando chegarem, com os
-// mesmos nomes de arquivo.
+// Recortados dos reels enviados (comandos em CLAUDE.md > Mídia). Todos sem
+// áudio, sem legenda queimada e sem cartela final.
 export const HERO_VIDEO = {
   landscape: { video: "/videos/cabelin/hero-triptico.mp4", poster: "/videos/cabelin/hero-triptico-poster.webp" },
   portrait: { video: "/videos/cabelin/hero-vertical.mp4", poster: "/videos/cabelin/hero-vertical-poster.webp" },
+} as const;
+
+const clip = (name: string) => ({ src: `/videos/cabelin/${name}.mp4`, poster: `/videos/cabelin/${name}-poster.webp` });
+
+export const CLIPS = {
+  espaco: clip("espaco-tour"),
+  cafe: clip("cafe"),
+  salgado: clip("cafe-salgado"),
+  estacionamento: clip("estacionamento"),
+  cabelo: clip("servico-cabelo"),
+  barba: clip("servico-barba"),
+  acabamento: clip("servico-acabamento"),
 } as const;

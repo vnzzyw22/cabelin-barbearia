@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { useRef, type PointerEvent } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
-import { PLAN_TERM, PLANS, whatsappUrl, type Plan } from "@/content/cabelin";
+import Image from "next/image";
+import { PHOTOS, PLAN_TERM, PLANS, whatsappUrl, type Plan } from "@/content/cabelin";
 import { formatAmount } from "@/lib/format";
 import { EASE } from "@/lib/motion";
 import { Bigode } from "./brand";
-import { SectionHead } from "./section-head";
+import { Parallax, RevealClip, RevealWords } from "./motion";
 
 // Club de Assinatura. Cada plano é um "cartão de membro" (o mesmo cartão que
 // aparece na Área do cliente), com inclinação leve seguindo o ponteiro.
@@ -121,10 +122,30 @@ export function ClubSection() {
       className="on-dark hex-texture relative overflow-hidden bg-petrol-deep py-[clamp(88px,12vw,168px)] text-led"
     >
       <div className="wrap">
-        <SectionHead index="01" label="Club de Assinatura" title="Corta quando quiser. Paga uma vez por mês." id="club-titulo">
-          Você vira membro, a gente cuida do resto: horário garantido, preço fechado e o café da casa por conta. Sem
-          fidelidade.
-        </SectionHead>
+        <header className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-x-8">
+          <div className="lg:col-span-7">
+            <p className="kicker text-sand">
+              <span className="tabular">01</span>
+              <span aria-hidden="true" className="h-px w-8 bg-current" />
+              Club de Assinatura
+            </p>
+            <RevealWords as="h2" id="club-titulo" text="Corta quando quiser. Paga uma vez por mês." className="display-lg mt-5 block" />
+            <p className="lede mt-7 max-w-[34rem] text-ash">
+              Você vira membro, a gente cuida do resto: horário garantido, preço fechado e o café da casa por conta. Sem
+              fidelidade.
+            </p>
+          </div>
+          {/* A própria campanha do Club: "Bora ficar na régua?" */}
+          <div className="lg:col-span-4 lg:col-start-9">
+            <RevealClip from="right">
+              <div className="chamfer relative aspect-[4/5] overflow-hidden [--cut:24px]">
+                <Parallax offset={18} className="absolute -inset-y-6 inset-x-0">
+                  <Image src={PHOTOS.club.src} alt={PHOTOS.club.alt} fill sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover" />
+                </Parallax>
+              </div>
+            </RevealClip>
+          </div>
+        </header>
 
         <ul className="mt-14 grid gap-5 md:mt-20 lg:grid-cols-3 lg:gap-6">
           {PLANS.map((plan, i) => (

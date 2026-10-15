@@ -183,8 +183,8 @@ export function Hero() {
             className="flex max-w-[34rem] flex-col gap-7"
           >
             <p className="lede text-led/85">
-              Corte, barba, um café passado na hora e um salão que você vai querer fotografar. Seg a sáb, das 9h às
-              21h, na Rua Bela Vista.
+              Corte, barba, café e chopp no balcão, num salão que você vai querer fotografar. Dentro do Muffato
+              Apucarana, seg a sáb, das 9h às 21h.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link href="/agendar" className="btn btn-sand min-h-14 px-9">

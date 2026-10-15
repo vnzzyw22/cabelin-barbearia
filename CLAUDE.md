@@ -40,21 +40,36 @@ PLANS do Club (ILUSTRATIVOS), TEAM_PLACEHOLDER (Nataly verificada; "Barbeiro 01�
 exemplo), horário real Seg–Sáb 9h–21h, CAFE_MENU (ilustrativo), PHOTOS, HERO_VIDEO.
 `supabase/seed.sql` ainda espelha o catálogo da Lobeca — reescrever antes de criar o banco.
 
-## Mídia
+## Mídia (atualizada 2026-10-15 com os originais enviados pelo Vinicius)
 
-- `midia-cliente/`: prints do Instagram enviados pelo Vinicius (originais).
-- `public/images/cabelin/*.jpg`: recortes desses prints (~1000px). Trocar pelos originais em
-  alta mantendo os nomes.
-- Logo: `public/images/cabelin/cabelin-logo.svg` (= `cabelin-mark.svg`) vetorizado com
-  potracer do print do perfil; `bigode.svg` e `src/components/site/logo-path.ts` são o bigode
-  separado. Pedir o vetor oficial.
-- **Hero (TEMPORÁRIO)**: `public/videos/cabelin/hero-vertical.mp4` (720×1280, 12 s) foi montado
-  com ffmpeg (zoompan + xfade + grão) a partir das fotos do salão e da barba;
-  `hero-triptico.mp4` (1920×1080) = 3 colunas do vertical defasadas 0/4/8 s. Pôsteres `.webp`
-  são o fallback. Quando chegarem os reels em alta: recortar sem legenda/marca d'água, sem
-  áudio, e salvar com os MESMOS nomes.
-- Vídeo de fundo: `video.muted = true` é setado por JS antes do `play()` (causa comum de vídeo
-  de hero que não aparece no iOS/Chrome); o pôster fica sempre por baixo.
+Fatos novos confirmados pela mídia: fica **dentro do Muffato Apucarana, no subsolo**, com
+**estacionamento coberto**; **cafeteria exclusiva** (café, salgados, chopp/"cervejinha").
+
+Vídeos (`public/videos/cabelin/`, todos sem áudio, sem legenda queimada, sem cartela; pôster
+`.webp` de cada um). Fontes = reels `barbeariacabelinn_N.mp4` (não versionados):
+- `hero-vertical.mp4` (720×1280, 15,9 s): reel 1, 4,6→20,45 s (corta os flashes laranja e a
+  cartela final). `hero-triptico.mp4` (1920×1080): 3 colunas do vertical defasadas 0/5,28/10,57 s.
+- `espaco-tour.mp4`: reel 7 (inauguração) — lounge+hex 0,68 s, lavatórios 1,66, cadeira 6,85,
+  barber pole 7,88, salão hex 49,58, salão vazio 54,56. Crop 4:5 (1080×1350 a partir de y=285).
+- `cafe.mp4`: reel 7 vitrine 2,72 / salgados 3,8 / chopp 16,66 + reel 5 máquina de café 19,2–22,8
+  (crop y=40 → acima da legenda queimada). `cafe-salgado.mp4`: reel 6 (360p, usado pequeno).
+- `estacionamento.mp4`: reel 5, 7,0–11,0 s, crop acima da legenda.
+- `servico-cabelo/barba/acabamento.mp4`: reel 1 (4,6 / 11,16 / 16,5 s), crop 4:5.
+- NÃO usados: reel 2 (gorros de Natal), reel 3 (filmado deitado, curso), reel 4 (crianças em
+  quase todo o vídeo), reel 8 (colagem com logo por cima), reel 5 fora dos recortes (legendas).
+
+Fotos (`public/images/cabelin/`, originais 1080px): `fachada.jpg` (vitrine no Muffato, recortada
+acima do texto do post), `cafeteria.jpg` e `club-regua.jpg` (textos de Instagram removidos com
+inpaint OpenCV), `equipe-panorama.jpg` (2 slides do carrossel unidos = os 5 barbeiros),
+`barbeiro-secador.jpg` (girada 90°), `barbeiro-cadeira.jpg`, `servico-tesoura/freestyle/pente.jpg`.
+Mapa foto → seção em `PHOTOS`/`CLIPS` de `src/content/cabelin.ts`.
+
+- `midia-cliente/`: prints do Instagram da 1ª rodada (o repo é público — ver pendências).
+- Logo: `public/images/cabelin/cabelin-logo.svg` (= `cabelin-mark.svg`), vetorizado do print;
+  `bigode.svg` e `logo-path.ts` = bigode separado. Pedir o vetor oficial.
+- Vídeo de fundo: `video.muted = true` é setado por JS antes do `play()` (hero e InViewVideo).
+- **QA local**: o Chromium do ambiente da Anthropic NÃO tem H.264 (`canPlayType` vazio, erro 4) —
+  nos prints aparecem só os pôsteres. Chrome/Safari/Firefox reais tocam normalmente.
 
 ## Lições técnicas
 
@@ -78,12 +93,15 @@ os reveals (`whileInView`); para conferir uma seção, abra direto na âncora (`
 
 ## Pendências (dependem do cliente)
 
-- [ ] Reels/fotos em alta (hero, espaço, equipe) e **fotos da cafeteria**.
+- [x] Reels/fotos em alta — recebidos e aplicados em 2026-10-15.
 - [ ] Tabela real de serviços (preços e durações) e quem faz o quê.
 - [ ] Planos reais do Club (nomes, valores, regras, dias).
 - [ ] Nomes e fotos da equipe (hoje: Nataly + "Barbeiro 01–03").
-- [ ] Cardápio da cafeteria.
-- [ ] Bairro: Instagram diz Vila Santa Terezinha, Linktree/Google dizem Centro — confirmar.
+- [ ] Cardápio da cafeteria com preços (hoje só café/salgados/cervejinha, sem preço).
+- [ ] Bairro: Instagram diz Vila Santa Terezinha, Linktree/Google dizem Centro (o site usa
+  "Dentro do Muffato", que resolve na prática).
+- [ ] Repo público com `midia-cliente/` (prints com DM de terceiro) — decidir: privar o repo ou
+  remover a pasta.
 - [ ] Logo vetorial oficial.
 - [ ] Supabase próprio da Cabelin + seed reescrito; migração dos assinantes do CashBarber.
 - [ ] Políticas de privacidade/termos com razão social/CNPJ.

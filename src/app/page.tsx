@@ -34,7 +34,7 @@ export default function Home() {
         <Hero />
         <div className="overflow-hidden bg-sand py-5 text-ink md:py-6">
           <Marquee speed={36}>
-            {[BRAND.motto, BRAND.bio, "Cafeteria dentro do salão", "Club de Assinatura"].map((t) => (
+            {[BRAND.motto, BRAND.bio, "Dentro do Muffato", "Cafeteria exclusiva", "Club de Assinatura"].map((t) => (
               <span key={t} className="flex items-center font-display text-[clamp(1.8rem,3.4vw,2.8rem)] leading-none font-black whitespace-nowrap uppercase">
                 {t.replace(/\.$/, "")}
                 <Hex />

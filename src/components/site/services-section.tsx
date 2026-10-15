@@ -4,11 +4,42 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { PHOTOS, SERVICE_CATEGORIES, SERVICES, type ServiceCategory } from "@/content/cabelin";
+import { CLIPS, PHOTOS, SERVICE_CATEGORIES, SERVICES, type ServiceCategory } from "@/content/cabelin";
 import { useDemoState } from "@/lib/demo/store";
 import { formatAmount } from "@/lib/format";
 import { EASE } from "@/lib/motion";
+import { InViewVideo } from "./in-view-video";
+import { RevealClip } from "./motion";
 import { SectionHead } from "./section-head";
+
+// Vídeo de cada categoria (recortes do reel da Cabelin).
+const TAB_CLIP = { cabelo: CLIPS.cabelo, barba: CLIPS.barba, rosto: CLIPS.acabamento } as const;
+
+const GALLERY = [
+  { key: "tesoura", label: "Tesoura" },
+  { key: "freestyle", label: "Freestyle na navalha" },
+  { key: "pente", label: "Finalização" },
+] as const;
+
+function TabVideo({ tab, className }: { tab: ServiceCategory; className: string }) {
+  const reduce = useReducedMotion();
+  return (
+    <div className={`relative overflow-hidden bg-graphite ${className}`}>
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={tab}
+          initial={reduce ? false : { opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={reduce ? undefined : { opacity: 0 }}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="absolute inset-0"
+        >
+          <InViewVideo src={TAB_CLIP[tab].src} poster={TAB_CLIP[tab].poster} className="absolute inset-0 h-full w-full" />
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+}
 
 // Serviços: carta numerada por categoria. Preço vem do store da
 // demonstração (o que for editado no painel aparece aqui). Cada linha leva
@@ -53,6 +84,8 @@ export function ServicesSection() {
                 );
               })}
             </div>
+
+            <TabVideo tab={tab} className="chamfer mt-6 aspect-[16/10] [--cut:18px] lg:hidden" />
 
             <div id="servicos-lista" role="tabpanel" aria-labelledby={`tab-${tab}`} className="mt-8">
               <AnimatePresence mode="wait" initial={false}>
@@ -103,15 +136,37 @@ export function ServicesSection() {
 
           <aside className="hidden lg:col-span-4 lg:block">
             <div className="sticky top-[calc(var(--nav-h)+24px)]">
-              <div className="chamfer relative aspect-[960/1300] overflow-hidden [--cut:24px]">
-                <Image src={PHOTOS.barba.src} alt={PHOTOS.barba.alt} fill sizes="30vw" className="object-cover" />
-              </div>
+              <TabVideo tab={tab} className="chamfer aspect-[4/5] [--cut:24px]" />
               <Link href="/agendar" className="btn btn-sand mt-5 w-full min-h-14">
                 Montar meu horário
               </Link>
             </div>
           </aside>
         </div>
+
+        {/* Na régua: o resultado, em foto */}
+        <ul className="mt-16 grid grid-cols-3 gap-2 md:mt-24 md:gap-4">
+          {GALLERY.map((g, i) => (
+            <li key={g.key}>
+              <RevealClip delay={i * 0.12}>
+                <figure>
+                  <div className="relative aspect-[4/5] overflow-hidden">
+                    <Image
+                      src={PHOTOS[g.key].src}
+                      alt={PHOTOS[g.key].alt}
+                      fill
+                      sizes="(min-width: 768px) 30vw, 33vw"
+                      className="object-cover transition-transform duration-700 ease-[var(--ease)] hover:scale-105"
+                    />
+                  </div>
+                  <figcaption className="mt-2 font-display text-[0.8rem] font-bold tracking-[0.12em] text-ash uppercase md:text-[0.95rem]">
+                    {g.label}
+                  </figcaption>
+                </figure>
+              </RevealClip>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
