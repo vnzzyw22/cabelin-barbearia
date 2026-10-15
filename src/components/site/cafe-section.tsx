@@ -78,7 +78,7 @@ export function CafeSection() {
 
         <div className="flex flex-col lg:col-span-5">
           {/* CAFÉ soltando vapor */}
-          <div aria-hidden="true" className="relative select-none">
+          <div aria-hidden="true" className="relative mt-16 select-none lg:mt-0">
             <div className="absolute -top-[0.62em] right-[8%] h-[0.62em] text-petrol" style={{ fontSize: "clamp(6rem,15vw,12rem)" }}>
               <Steam />
             </div>

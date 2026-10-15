@@ -195,21 +195,21 @@
   .display-xl {
     font-weight: 900;
     font-size: clamp(4rem, 13vw, 13.5rem);
-    line-height: 0.82;
+    line-height: 0.88;
     letter-spacing: -0.01em;
   }
 
   .display-lg {
     font-weight: 800;
     font-size: clamp(3rem, 7.4vw, 7.25rem);
-    line-height: 0.86;
+    line-height: 0.96;
     letter-spacing: -0.005em;
   }
 
   .display-md {
     font-weight: 800;
     font-size: clamp(2.1rem, 3.6vw, 3.25rem);
-    line-height: 0.92;
+    line-height: 1;
   }
 
   /* Rótulo técnico: número + texto espaçado, como a régua de um cartaz. */
