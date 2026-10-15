@@ -6,7 +6,7 @@ Nada de paleta "premium" genérica: cada decisão sai do salão e da marca.
 
 | Fonte real | Vira no site |
 |---|---|
-| Teto de hexágonos em LED | Assinatura: `HexCeiling` (células acendem em onda na hero), textura `.hex-texture`, marcadores hexagonais nas listas, avatares hexagonais no agendamento |
+| Teto de hexágonos em LED | Textura sutil `.hex-texture` (Club, rodapé, menu), marcadores hexagonais nas listas, avatares hexagonais no agendamento. A hero NÃO leva grade de hexágonos (pedido do Vinicius, 2026-10-15) — o teto real já aparece nos vídeos |
 | Parede azul-petróleo | `--petrol` / `--petrol-deep`: fundo do Club, do contato e do cartão de membro |
 | Uniforme areia da equipe | `--sand`: botão principal, faixa do lema, a cafeteria inteira |
 | Logo (letras quadradas, cantos cortados) e posts ("CLUB DE ASSINATURA") | Saira Extra Condensed em caixa alta; chanfro (`.chamfer`, `.btn`) em vez de pílula |
@@ -16,7 +16,7 @@ Nada de paleta "premium" genérica: cada decisão sai do salão e da marca.
 ## Ritmo das superfícies
 
 Hero (vídeo + petróleo) → faixa areia com o lema → Club (petróleo + hexágonos) → Espaço
-(preto, foto abre com a rolagem, pontos marcados na foto) → Cafeteria (areia, tipográfica, CAFÉ
+(preto, vitrine + tour em vídeo, moldura abre com a rolagem) → Cafeteria (areia, tipográfica, CAFÉ
 soltando vapor) → Equipe (papel, foto areia) → Serviços (preto, carta numerada) → Onde estamos
 (petróleo, mapa tingido) → Rodapé (CABELIN gigante).
 
@@ -24,7 +24,7 @@ soltando vapor) → Equipe (papel, foto areia) → Serviços (preto, carta numer
 
 Uma curva só (`EASE` em `src/lib/motion.ts`). Títulos sobem palavra por palavra de dentro de uma
 máscara; fotos se revelam por recorte; cartões do Club inclinam seguindo o ponteiro (só mouse);
-selo do lema gira na hero; teto acende uma vez e fica. `prefers-reduced-motion` desliga tudo e
+selo do lema gira na hero. Fotos e vídeos do salão sem rótulos por cima. `prefers-reduced-motion` desliga tudo e
 troca vídeo por pôster.
 
 ## Tipos

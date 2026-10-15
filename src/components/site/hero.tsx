@@ -6,7 +6,6 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { BRAND, HERO_VIDEO } from "@/content/cabelin";
 import { EASE } from "@/lib/motion";
 import { Bigode } from "./brand";
-import { HexCeiling } from "./hex-ceiling";
 
 // Dois cortes do mesmo filme: tela mais larga que alta → tríptico 1920×1080;
 // retrato → vertical 720×1280. O pôster fica sempre por baixo: se o vídeo não
@@ -56,7 +55,6 @@ function HeroVideo() {
     <div aria-hidden="true" className="absolute inset-0 -z-10 bg-ink">
       <picture>
         <source media={LANDSCAPE} srcSet={HERO_VIDEO.landscape.poster} />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={HERO_VIDEO.portrait.poster} alt="" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
       </picture>
       {orientation && !reduceMotion && (
@@ -111,7 +109,6 @@ export function Hero() {
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 140]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
-  const ceilingY = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
   const line = (delay: number) => ({
     initial: reduce ? false : { y: "105%" },
@@ -138,14 +135,6 @@ export function Hero() {
       />
       <div aria-hidden="true" className="grain absolute inset-0 -z-10" />
 
-      {/* O teto acende. */}
-      <motion.div
-        aria-hidden="true"
-        style={reduce ? undefined : { y: ceilingY }}
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[42%] [mask-image:linear-gradient(to_bottom,black_10%,transparent_95%)] opacity-55 md:opacity-60"
-      >
-        <HexCeiling className="h-full w-full" cols={16} rows={4} delay={0.35} />
-      </motion.div>
 
       <motion.div
         style={reduce ? undefined : { y: contentY, opacity: contentOpacity }}
